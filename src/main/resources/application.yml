@@ -1,0 +1,35 @@
+spring:
+  jmx:
+    enabled: true
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      show_sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    #driver-class-name: org.mariadb.jdbc.Driver
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mariadb://localhost:3306/livecheck
+    driver-class-name: ${DB_DRIVER}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    url: ${DB_URL}
+    hikari:
+      maximum-pool-size: 2
+
+discord:
+  token: ${DISCORD_TOKEN}
+  ownerid: ${DISCORD_OWNERID}
+
+streams:
+  twitch:
+    clientid: ${TWITCH_CLIENTID}
+    clientsecret: ${TWITCH_CLIENTSECRET}
+    oauth: ${TWITCH_OAUTH}
+    username: ${TWITCH_USERNAME}
+
+logging:
+  level:
+    #org.hibernate.SQL: DEBUG
+    bar.barinade: TRACE
