@@ -32,4 +32,4 @@ streams:
 logging:
   level:
     #org.hibernate.SQL: DEBUG
-    bar.barinade: TRACE
+    bar.barinade: DEBUG
