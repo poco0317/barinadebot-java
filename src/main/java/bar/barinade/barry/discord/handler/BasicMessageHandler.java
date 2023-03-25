@@ -1,5 +1,7 @@
 package bar.barinade.barry.discord.handler;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import bar.barinade.barry.brain.service.Cerebellum;
 import bar.barinade.barry.discord.BotPermissions;
 import bar.barinade.barry.discord.serverconfig.service.DefinedChannelService;
 import bar.barinade.barry.twitch.TwitchChatManager;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Message.MentionType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -27,6 +30,7 @@ public class BasicMessageHandler extends ListenerAdapter {
 	private static final String LISTEN = "br!listen";
 	private static final String ASSIGN_TWITCH = "br!twitch";
 	private static final String UNASSIGN_TWITCH = "br!stoptwitch";
+	private static final String SERVERS = "br!servers";
 	
 	private static final String BAR_PREFIX = "bar";
 	
@@ -98,6 +102,14 @@ public class BasicMessageHandler extends ListenerAdapter {
 					} else {
 						event.getChannel().sendMessage("Successfully removed Twitch channel association from this guild.").queue();
 					}
+				}
+				else if (msg.startsWith(SERVERS)) {
+					List<Guild> guilds = event.getJDA().getGuilds();
+					StringBuilder sb = new StringBuilder();
+					for (Guild guild : guilds) {
+						sb.append(guild.getId() + " - "+guild.getName());
+					}
+					event.getChannel().sendMessage("Heres the servers: "+sb.toString()).queue();
 				}
 				return;
 			}

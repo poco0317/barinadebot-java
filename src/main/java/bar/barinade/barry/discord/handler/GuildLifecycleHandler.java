@@ -29,7 +29,6 @@ public class GuildLifecycleHandler extends ListenerAdapter {
 	public void onGuildLeave(GuildLeaveEvent event) {
 		m_logger.info("Left Guild : ID {} : {}", event.getGuild().getId(), event.getGuild().getName());
 		twitchChatManager.removeAssociation(event.getGuild().getIdLong());
-		
 	}
 
 }
