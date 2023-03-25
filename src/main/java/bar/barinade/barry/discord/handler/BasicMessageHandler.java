@@ -113,6 +113,7 @@ public class BasicMessageHandler extends ListenerAdapter {
 					StringBuilder sb = new StringBuilder();
 					for (Guild guild : guilds) {
 						sb.append(guild.getId() + " - "+guild.getName());
+						sb.append("\n");
 					}
 					event.getChannel().sendMessage("Heres the servers: "+sb.toString()).queue();
 				}
