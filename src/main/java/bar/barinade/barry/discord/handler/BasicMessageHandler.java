@@ -79,13 +79,15 @@ public class BasicMessageHandler extends ListenerAdapter {
 				m_logger.info("About to attempt cmd: {}", msg);
 				
 				// load brain from file path
-				if (msg.startsWith(NAME_LOAD_PATH)) {					
+				if (msg.startsWith(NAME_LOAD_PATH)) {
 					String arg = msg.substring(NAME_LOAD_PATH.length()).strip();
+					m_logger.info("Loading from path {}", arg);
 					
 					brain.loadFormattedBrainFromPath(arg, id);
 				}
 				else if (msg.startsWith(ASSIGN_TWITCH)) {
 					String arg = msg.substring(ASSIGN_TWITCH.length()).strip();
+					m_logger.info("Assigned twitch channel {}", arg);
 					
 					boolean success = twitchChat.setAssociation(id, arg);
 					if (!success) {
@@ -97,6 +99,7 @@ public class BasicMessageHandler extends ListenerAdapter {
 				}
 				else if (msg.startsWith(UNASSIGN_TWITCH)) {
 					boolean success = twitchChat.removeAssociation(id);
+					m_logger.info("Unassigning twitch channel");
 					if (!success) {
 						event.getChannel().sendMessage(
 								"Failed to remove Twitch channel association with this guild ... There was an error or there was never an association.").queue();
@@ -105,6 +108,7 @@ public class BasicMessageHandler extends ListenerAdapter {
 					}
 				}
 				else if (msg.startsWith(SERVERS)) {
+					m_logger.info("Reading out all connected servers");
 					List<Guild> guilds = event.getJDA().getGuilds();
 					StringBuilder sb = new StringBuilder();
 					for (Guild guild : guilds) {
@@ -114,6 +118,7 @@ public class BasicMessageHandler extends ListenerAdapter {
 				}
 				else if (msg.startsWith(LEAVE)) {
 					String arg = msg.substring(LEAVE.length()).strip();
+					m_logger.info("Leaving server {}", arg);
 					
 					Guild g = event.getJDA().getGuildById(arg);
 					g.leave().complete();
