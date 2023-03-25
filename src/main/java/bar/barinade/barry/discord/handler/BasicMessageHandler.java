@@ -31,6 +31,7 @@ public class BasicMessageHandler extends ListenerAdapter {
 	private static final String ASSIGN_TWITCH = "br!twitch";
 	private static final String UNASSIGN_TWITCH = "br!stoptwitch";
 	private static final String SERVERS = "br!servers";
+	private static final String LEAVE = "br!leave";
 	
 	private static final String BAR_PREFIX = "bar";
 	
@@ -110,6 +111,13 @@ public class BasicMessageHandler extends ListenerAdapter {
 						sb.append(guild.getId() + " - "+guild.getName());
 					}
 					event.getChannel().sendMessage("Heres the servers: "+sb.toString()).queue();
+				}
+				else if (msg.startsWith(LEAVE)) {
+					String arg = msg.substring(LEAVE.length()).strip();
+					
+					Guild g = event.getJDA().getGuildById(arg);
+					g.leave().complete();
+					event.getChannel().sendMessage("Successfully left guild : "+g.getName()).queue();
 				}
 				return;
 			}
